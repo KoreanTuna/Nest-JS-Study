@@ -52,3 +52,8 @@ Flutter의 getIt, Injectable도 유사한 패턴을 사용한것이라고 바로
 ```bash
 docker compose up
 ```
+
+![alt text](postgrsql_connection.png)
+![alt text](connection_ip.png)
+![alt text](postgres_signin.png)
+port : 5432 -> Standard connection > postgres > 연결이름:nestjs_local_database
