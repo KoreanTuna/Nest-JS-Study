@@ -15,83 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostsController = void 0;
 const common_1 = require("@nestjs/common");
 const posts_service_1 = require("./posts.service");
-let posts = [
-    {
-        id: 1,
-        author: 'Minwoo',
-        title: 'Happy to learn NestJS',
-        content: 'NestJS 맛보기',
-        likeCount: 10000,
-        commentCount: 10,
-    },
-    {
-        id: 2,
-        author: 'Chan',
-        title: 'Exploring NestJS',
-        content: 'NestJS 심화',
-        likeCount: 5000,
-        commentCount: 5,
-    },
-    {
-        id: 3,
-        author: 'Min',
-        title: 'Mastering NestJS',
-        content: 'NestJS 심화 과정',
-        likeCount: 3000,
-        commentCount: 2,
-    },
-];
 let PostsController = class PostsController {
     postsService;
     constructor(postsService) {
         this.postsService = postsService;
     }
     getPosts() {
-        return posts;
+        return this.postsService.getAllPosts();
     }
     getPost(id) {
-        const post = posts.find((post) => post.id === +id);
-        if (!post) {
-            throw new common_1.NotFoundException();
-        }
-        return post;
+        return this.postsService.getPostById(+id);
     }
     postPosts(author, title, content) {
-        const newPost = {
-            id: posts[posts.length - 1].id + 1,
-            author,
-            title,
-            content,
-            likeCount: 0,
-            commentCount: 0,
-        };
-        posts = [...posts, newPost];
-        return newPost;
+        return this.postsService.createPost(author, title, content);
     }
     putPost(id, author, title, content) {
-        const post = posts.find((post) => post.id === +id);
-        if (!post) {
-            throw new common_1.NotFoundException();
-        }
-        if (author) {
-            post.author = author;
-        }
-        if (title) {
-            post.title = title;
-        }
-        if (content) {
-            post.content = content;
-        }
-        posts = posts.map((prevPost) => (prevPost.id === +id ? post : prevPost));
-        return post;
+        const post = this.postsService.updatePost(+id);
     }
     deletePost(id) {
-        const post = posts.find((post) => post.id === +id);
-        if (!post) {
-            throw new common_1.NotFoundException();
-        }
-        posts = posts.filter((post) => post.id !== +id);
-        return +id;
+        const post = this.postsService.deletePost(+id);
     }
 };
 exports.PostsController = PostsController;
@@ -99,7 +41,7 @@ __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Array)
+    __metadata("design:returntype", void 0)
 ], PostsController.prototype, "getPosts", null);
 __decorate([
     (0, common_1.Get)(':id'),
