@@ -14,5 +14,6 @@ export declare class PostsController {
     getPost(id: string): PostModel;
     postPosts(author: string, title: string, content: string): PostModel;
     putPost(id: string, author?: string, title?: string, content?: string): PostModel;
+    deletePost(id: string): number;
 }
 export {};

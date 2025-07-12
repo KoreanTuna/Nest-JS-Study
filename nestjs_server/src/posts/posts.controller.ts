@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   NotFoundException,
   Param,
@@ -131,4 +132,16 @@ export class PostsController {
 
   // 5) DELETE /posts/:id
   // 게시글 삭제
+  @Delete(':id')
+  deletePost(@Param('id') id: string) {
+    const post = posts.find((post) => post.id === +id);
+    /// id의 포스트가 존재하지 않을 경우
+    if (!post) {
+      throw new NotFoundException();
+    }
+
+    posts = posts.filter((post) => post.id !== +id);
+
+    return +id;
+  }
 }

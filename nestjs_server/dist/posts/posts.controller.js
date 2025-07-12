@@ -85,6 +85,14 @@ let PostsController = class PostsController {
         posts = posts.map((prevPost) => (prevPost.id === +id ? post : prevPost));
         return post;
     }
+    deletePost(id) {
+        const post = posts.find((post) => post.id === +id);
+        if (!post) {
+            throw new common_1.NotFoundException();
+        }
+        posts = posts.filter((post) => post.id !== +id);
+        return +id;
+    }
 };
 exports.PostsController = PostsController;
 __decorate([
@@ -119,6 +127,13 @@ __decorate([
     __metadata("design:paramtypes", [String, String, String, String]),
     __metadata("design:returntype", void 0)
 ], PostsController.prototype, "putPost", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], PostsController.prototype, "deletePost", null);
 exports.PostsController = PostsController = __decorate([
     (0, common_1.Controller)('posts'),
     __metadata("design:paramtypes", [posts_service_1.PostsService])
