@@ -46,3 +46,9 @@ export class PostsService {}
 
 IOC콘테이너에 Injectable로 Service를 등록하는거같은데,
 Flutter의 getIt, Injectable도 유사한 패턴을 사용한것이라고 바로 캐치했음!
+
+## Docker
+
+```bash
+docker compose up
+```
