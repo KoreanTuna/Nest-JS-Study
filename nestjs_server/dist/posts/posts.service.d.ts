@@ -1,3 +1,4 @@
+import { Repository } from 'typeorm';
 export { PostModel };
 interface PostModel {
     id: number;
@@ -8,6 +9,8 @@ interface PostModel {
     commentCount: number;
 }
 export declare class PostsService {
+    private readonly postsRepository;
+    constructor(postsRepository: Repository<PostModel>);
     getAllPosts(): PostModel[];
     getPostById(id: number): PostModel;
     createPost(author: string, title: string, content: string): PostModel;

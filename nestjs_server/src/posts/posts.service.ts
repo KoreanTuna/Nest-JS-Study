@@ -1,4 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { PostsModel } from './entities/posts.entity';
 export { PostModel };
 /**
  * author : string;
@@ -46,6 +49,13 @@ let posts: PostModel[] = [
 
 @Injectable()
 export class PostsService {
+  constructor(
+    @InjectRepository(PostsModel)
+    private readonly postsRepository: Repository<PostModel>,
+  ) {
+    // TypeORM Repository를 주입받아 사용할 수 있습니다.
+    this.postsRepository = postsRepository;
+  }
   getAllPosts(): PostModel[] {
     return posts;
   }
