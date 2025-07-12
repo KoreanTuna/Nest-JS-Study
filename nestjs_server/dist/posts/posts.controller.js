@@ -56,6 +56,35 @@ let PostsController = class PostsController {
         }
         return post;
     }
+    postPosts(author, title, content) {
+        const newPost = {
+            id: posts[posts.length - 1].id + 1,
+            author,
+            title,
+            content,
+            likeCount: 0,
+            commentCount: 0,
+        };
+        posts = [...posts, newPost];
+        return newPost;
+    }
+    putPost(id, author, title, content) {
+        const post = posts.find((post) => post.id === +id);
+        if (!post) {
+            throw new common_1.NotFoundException();
+        }
+        if (author) {
+            post.author = author;
+        }
+        if (title) {
+            post.title = title;
+        }
+        if (content) {
+            post.content = content;
+        }
+        posts = posts.map((prevPost) => (prevPost.id === +id ? post : prevPost));
+        return post;
+    }
 };
 exports.PostsController = PostsController;
 __decorate([
@@ -71,6 +100,25 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], PostsController.prototype, "getPost", null);
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)('author')),
+    __param(1, (0, common_1.Body)('title')),
+    __param(2, (0, common_1.Body)('content')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, String]),
+    __metadata("design:returntype", Object)
+], PostsController.prototype, "postPosts", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)('author')),
+    __param(2, (0, common_1.Body)('title')),
+    __param(3, (0, common_1.Body)('content')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, String, String]),
+    __metadata("design:returntype", void 0)
+], PostsController.prototype, "putPost", null);
 exports.PostsController = PostsController = __decorate([
     (0, common_1.Controller)('posts'),
     __metadata("design:paramtypes", [posts_service_1.PostsService])
