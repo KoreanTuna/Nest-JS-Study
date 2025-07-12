@@ -1,3 +1,26 @@
 # Nest-JS-Study
 
 NestJS 공부!
+
+### NestJS Built-in-Exception
+
+BadRequestException
+UnauthorizedException
+NotFoundException
+ForbiddenException
+NotAcceptableException
+RequestTimeoutException
+ConflictException
+GoneException
+HttpVersionNotSupportedException
+PayloadTooLargeException
+UnsupportedMediaTypeException
+UnprocessableEntityException
+InternalServerErrorException
+NotImplementedException
+ImATeapotException
+MethodNotAllowedException
+BadGatewayException
+ServiceUnavailableException
+GatewayTimeoutException
+PreconditionFailedException
