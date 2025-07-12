@@ -8,23 +8,53 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostsController = void 0;
 const common_1 = require("@nestjs/common");
 const posts_service_1 = require("./posts.service");
+let posts = [
+    {
+        id: 1,
+        author: 'Minwoo',
+        title: 'Happy to learn NestJS',
+        content: 'NestJS 맛보기',
+        likeCount: 10000,
+        commentCount: 10,
+    },
+    {
+        id: 2,
+        author: 'Chan',
+        title: 'Exploring NestJS',
+        content: 'NestJS 심화',
+        likeCount: 5000,
+        commentCount: 5,
+    },
+    {
+        id: 3,
+        author: 'Min',
+        title: 'Mastering NestJS',
+        content: 'NestJS 심화 과정',
+        likeCount: 3000,
+        commentCount: 2,
+    },
+];
 let PostsController = class PostsController {
     postsService;
     constructor(postsService) {
         this.postsService = postsService;
     }
-    getPost() {
-        return {
-            author: 'Minwoo',
-            title: 'Happy to learn NestJS',
-            content: 'NestJS 맛보기',
-            likeCount: 10000,
-            commentCount: 10,
-        };
+    getPosts() {
+        return posts;
+    }
+    getPost(id) {
+        const post = posts.find((post) => post.id === +id);
+        if (!post) {
+            throw new common_1.NotFoundException();
+        }
+        return post;
     }
 };
 exports.PostsController = PostsController;
@@ -32,7 +62,14 @@ __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Object)
+    __metadata("design:returntype", Array)
+], PostsController.prototype, "getPosts", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
 ], PostsController.prototype, "getPost", null);
 exports.PostsController = PostsController = __decorate([
     (0, common_1.Controller)('posts'),
