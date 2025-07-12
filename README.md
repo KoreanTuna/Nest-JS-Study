@@ -53,6 +53,8 @@ Flutter의 getIt, Injectable도 유사한 패턴을 사용한것이라고 바로
 docker compose up
 ```
 
+docker-compose.yaml에 저장된 내용대로 연결진행
+
 ![alt text](postgrsql_connection.png)
 ![alt text](connection_ip.png)
 ![alt text](postgres_signin.png)
