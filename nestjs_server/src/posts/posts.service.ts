@@ -56,35 +56,47 @@ export class PostsService {
     // TypeORM Repository를 주입받아 사용할 수 있습니다.
     this.postsRepository = postsRepository;
   }
-  getAllPosts(): PostModel[] {
-    return posts;
+  async getAllPosts(): Promise<PostModel[]> {
+    /// TypeORM Repository를 사용하여 모든 게시글을 조회.
+    return this.postsRepository.find();
   }
 
-  getPostById(id: number): PostModel {
-    const post = posts.find((post) => post.id === id);
-    /// id의 포스트가 존재하지 않을 경우
+  async getPostById(id: number) {
+    const post: PostModel | null = await this.postsRepository.findOne({
+      where: { id },
+    });
     if (!post) {
-      throw new NotFoundException();
+      throw new NotFoundException(`Post with id ${id} not found`);
     }
     return post;
   }
 
-  createPost(author: string, title: string, content: string): PostModel {
-    const newPost: PostModel = {
-      id: posts[posts.length - 1].id + 1,
+  async createPost(author: string, title: string, content: string) {
+    // 1) create -> 저장할 객체를 생성
+    // 2) save -> 객체를 저장(create 메서드에서 생성한 객체로)
+    const post = this.postsRepository.create({
       author,
       title,
       content,
-      likeCount: 0,
-      commentCount: 0,
-    };
+      likeCount: 0, // 초기값 설정
+      commentCount: 0, // 초기값 설정
+    });
 
-    posts = [...posts, newPost];
+    const newPost = await this.postsRepository.save(post);
     return newPost;
   }
 
-  updatePost(id: number, author?: string, title?: string, content?: string) {
-    const post = posts.find((post) => post.id === id);
+  async updatePost(
+    postId: number,
+    author?: string,
+    title?: string,
+    content?: string,
+  ) {
+    /// save의 기능
+    // 1) 만약에 id기준으로 데이터가 존재하지 않는다면 새로 생성
+    // 2) 만약에 id기준으로 데이터가 존재한다면 해당 데이터를 수정
+    const post = await this.postsRepository.findOne({ where: { id: postId } });
+
     if (!post) {
       throw new NotFoundException();
     }
@@ -101,10 +113,8 @@ export class PostsService {
       post.content = content;
     }
 
-    posts = posts.map((prevPost) => (prevPost.id === id ? post : prevPost));
-
-    // 수정된 게시글 반환
-    return post;
+    // save 메서드를 사용하여 수정된 post 객체를 저장
+    return this.postsRepository.save(post);
   }
 
   deletePost(id: number) {

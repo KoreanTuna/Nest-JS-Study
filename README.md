@@ -107,3 +107,41 @@ export class PostsService {
   ...
   }
 ```
+
+## 조회 / 생성 / 수정
+
+**테이블 전체 조회**
+
+```js
+return this.postsRepository.find();
+```
+
+**단건 조회**
+
+```js
+const post: PostModel | null = await this.postsRepository.findOne({
+  where: { id },
+});
+```
+
+**생성**
+
+```js
+const post = this.postsRepository.create({
+  author,
+  title,
+  content,
+  likeCount: 0, // 초기값 설정
+  commentCount: 0, // 초기값 설정
+});
+```
+
+**저장**
+save의 기능
+
+1.  만약에 id기준으로 데이터가 존재하지 않는다면 새로 생성
+2.  만약에 id기준으로 데이터가 존재한다면 해당 데이터를 수정
+
+```js
+const newPost = await this.postsRepository.save(post);
+```

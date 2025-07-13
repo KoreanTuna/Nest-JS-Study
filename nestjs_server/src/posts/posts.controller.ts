@@ -36,7 +36,7 @@ export class PostsController {
     @Body('author') author: string,
     @Body('title') title: string,
     @Body('content') content: string,
-  ): PostModel {
+  ) {
     return this.postsService.createPost(author, title, content);
   }
 
@@ -44,12 +44,12 @@ export class PostsController {
   // 게시글 수정
   @Put(':id')
   putPost(
-    @Param('id') id: string,
+    @Param('id') postId: string,
     @Body('author') author?: string,
     @Body('title') title?: string,
     @Body('content') content?: string,
   ) {
-    const post = this.postsService.updatePost(+id);
+    return this.postsService.updatePost(+postId, author, title, content);
   }
 
   // 5) DELETE /posts/:id

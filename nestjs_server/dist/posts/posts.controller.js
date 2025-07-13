@@ -29,8 +29,8 @@ let PostsController = class PostsController {
     postPosts(author, title, content) {
         return this.postsService.createPost(author, title, content);
     }
-    putPost(id, author, title, content) {
-        const post = this.postsService.updatePost(+id);
+    putPost(postId, author, title, content) {
+        return this.postsService.updatePost(+postId, author, title, content);
     }
     deletePost(id) {
         const post = this.postsService.deletePost(+id);
@@ -57,7 +57,7 @@ __decorate([
     __param(2, (0, common_1.Body)('content')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, String]),
-    __metadata("design:returntype", Object)
+    __metadata("design:returntype", void 0)
 ], PostsController.prototype, "postPosts", null);
 __decorate([
     (0, common_1.Put)(':id'),

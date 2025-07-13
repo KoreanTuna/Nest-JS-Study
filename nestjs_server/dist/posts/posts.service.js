@@ -49,30 +49,31 @@ let PostsService = class PostsService {
         this.postsRepository = postsRepository;
         this.postsRepository = postsRepository;
     }
-    getAllPosts() {
-        return posts;
+    async getAllPosts() {
+        return this.postsRepository.find();
     }
-    getPostById(id) {
-        const post = posts.find((post) => post.id === id);
+    async getPostById(id) {
+        const post = await this.postsRepository.findOne({
+            where: { id },
+        });
         if (!post) {
-            throw new common_1.NotFoundException();
+            throw new common_1.NotFoundException(`Post with id ${id} not found`);
         }
         return post;
     }
-    createPost(author, title, content) {
-        const newPost = {
-            id: posts[posts.length - 1].id + 1,
+    async createPost(author, title, content) {
+        const post = this.postsRepository.create({
             author,
             title,
             content,
             likeCount: 0,
             commentCount: 0,
-        };
-        posts = [...posts, newPost];
+        });
+        const newPost = await this.postsRepository.save(post);
         return newPost;
     }
-    updatePost(id, author, title, content) {
-        const post = posts.find((post) => post.id === id);
+    async updatePost(postId, author, title, content) {
+        const post = await this.postsRepository.findOne({ where: { id: postId } });
         if (!post) {
             throw new common_1.NotFoundException();
         }
@@ -85,8 +86,7 @@ let PostsService = class PostsService {
         if (content) {
             post.content = content;
         }
-        posts = posts.map((prevPost) => (prevPost.id === id ? post : prevPost));
-        return post;
+        return this.postsRepository.save(post);
     }
     deletePost(id) {
         const post = posts.find((post) => post.id === id);

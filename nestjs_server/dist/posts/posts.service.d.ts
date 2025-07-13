@@ -11,9 +11,9 @@ interface PostModel {
 export declare class PostsService {
     private readonly postsRepository;
     constructor(postsRepository: Repository<PostModel>);
-    getAllPosts(): PostModel[];
-    getPostById(id: number): PostModel;
-    createPost(author: string, title: string, content: string): PostModel;
-    updatePost(id: number, author?: string, title?: string, content?: string): PostModel;
+    getAllPosts(): Promise<PostModel[]>;
+    getPostById(id: number): Promise<PostModel>;
+    createPost(author: string, title: string, content: string): Promise<PostModel>;
+    updatePost(postId: number, author?: string, title?: string, content?: string): Promise<PostModel>;
     deletePost(id: number): number;
 }
