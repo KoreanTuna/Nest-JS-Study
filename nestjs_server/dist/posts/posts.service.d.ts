@@ -15,5 +15,5 @@ export declare class PostsService {
     getPostById(id: number): Promise<PostModel>;
     createPost(author: string, title: string, content: string): Promise<PostModel>;
     updatePost(postId: number, author?: string, title?: string, content?: string): Promise<PostModel>;
-    deletePost(id: number): number;
+    deletePost(postId: number): Promise<number>;
 }

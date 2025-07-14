@@ -6,5 +6,5 @@ export declare class PostsController {
     getPost(id: string): Promise<PostModel>;
     postPosts(author: string, title: string, content: string): Promise<PostModel>;
     putPost(postId: string, author?: string, title?: string, content?: string): Promise<PostModel>;
-    deletePost(id: string): void;
+    deletePost(id: string): Promise<number>;
 }

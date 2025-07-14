@@ -56,6 +56,6 @@ export class PostsController {
   // 게시글 삭제
   @Delete(':id')
   deletePost(@Param('id') id: string) {
-    const post = this.postsService.deletePost(+id);
+    return this.postsService.deletePost(+id);
   }
 }

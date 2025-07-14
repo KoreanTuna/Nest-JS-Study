@@ -33,7 +33,7 @@ let PostsController = class PostsController {
         return this.postsService.updatePost(+postId, author, title, content);
     }
     deletePost(id) {
-        const post = this.postsService.deletePost(+id);
+        return this.postsService.deletePost(+id);
     }
 };
 exports.PostsController = PostsController;
