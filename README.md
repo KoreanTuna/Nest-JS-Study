@@ -268,3 +268,46 @@ export class TeacherModel {
   salary: number;
 }
 ```
+
+## TableInheritance
+
+```ts
+@Entity()
+@TableInheritance({
+  column: {
+    name: "type",
+    type: "varchar",
+  },
+})
+export class SingleBaseModel {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+}
+
+@ChildEntity()
+export class ComputerModel extends SingleBaseModel {
+  @Column()
+  brand: string;
+}
+@ChildEntity()
+export class AirplaneModel extends SingleBaseModel {
+  @Column()
+  country: string;
+}
+```
+
+요렇게 만들어주면 Table은 아래처럼 만들어진다.
+SingleBaseModel Table
+
+- id
+- createdAt
+- updatedAt
+- type
+- brand
+- country
