@@ -233,3 +233,38 @@ Column에 적용시킬 수 있다!
   })
   role: Role;
 ```
+
+## Entity Embedding
+
+```ts
+export class Name {
+  @Column()
+  first: string;
+
+  @Column()
+  last: string;
+}
+
+@Entity()
+export class StudentModel {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column(() => Name)
+  name: Name; // -> nameFirst, nameLast Column생성
+
+  @Column()
+  class: string;
+}
+
+@Entity()
+export class TeacherModel {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column(() => Name)
+  name: Name; // -> nameFirst, nameLast Column생성
+  @Column()
+  salary: number;
+}
+```
