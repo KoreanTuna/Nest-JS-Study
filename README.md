@@ -145,3 +145,7 @@ save의 기능
 ```js
 const newPost = await this.postsRepository.save(post);
 ```
+
+## Flutter로 로컬호스트 DataFetching 성공
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/88f45ac2-2ed8-4b10-9f6e-aa07900e2754" />
+
