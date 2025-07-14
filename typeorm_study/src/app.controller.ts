@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserModel } from './entities/user.entity';
+import { Role, UserModel } from './entities/user.entity';
 import { Repository } from 'typeorm';
 
 @Controller()
@@ -20,7 +20,9 @@ export class AppController {
 
   @Post('users')
   postUser() {
-    return this.userRepository.save({});
+    return this.userRepository.save({
+      role: Role.ADMIN,
+    });
   }
 
   @Get('users')

@@ -210,3 +210,26 @@ const newPost = await this.postsRepository.save(post);
   title: string;
 
 ```
+
+## Enum Type
+
+다음 처럼 Enum클래스를 선언하고
+
+```ts
+export enum Role {
+  USER = "user",
+  ADMIN = "admin",
+}
+```
+
+Column에 적용시킬 수 있다!
+
+```ts
+  /// 역할
+  @Column({
+    type: 'enum',
+    enum: Role,
+    default: Role.USER,
+  })
+  role: Role;
+```
