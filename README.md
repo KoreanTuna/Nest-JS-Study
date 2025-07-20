@@ -316,3 +316,72 @@ SingleBaseModel Table
 - type
 - brand
 - country
+
+
+## One to One R 객체 정의
+``` ts
+@Entity()
+export class UserModel {
+  ...
+  
+  @OneToOne(() => ProfileModel, (profile) => profile.user)
+  profile: ProfileModel;
+
+  ...
+
+}
+
+@Entity()
+export class ProfileModel {
+  ...
+
+  @OneToOne(() => UserModel, (user) => user.profile)
+  @JoinColumn()  /// DB에 Column이 생길 One에다가 어노테이션 달아주면된다.
+  user: UserModel;
+
+  ...
+
+}
+```
+
+
+## One to Many R 객체 정의
+
+``` ts
+@Entity()
+export class UserModel {
+  ...
+
+  @OneToMany(() => PostModel, (post) => post.author)
+  posts: PostModel[];
+  
+  ...
+}
+
+
+
+@Entity()
+export class PostModel {
+  ...
+
+  @ManyToOne(() => UserModel, (user) => user.posts)
+  author: UserModel;
+
+  ...
+}
+```
+
+
+## One to One / One to Many 등 조회 방법
+``` ts
+@Get('users')
+async getUsers() {
+  return this.userRepository.find({
+    relations: {
+      profile: true,
+      posts: true,
+    },
+  });
+}
+```
+조회함수(find)에 relations 객체와 각 관계가 생긴 테이블을 조회에서 값을 추가해줄 것인지 알려줘야한다.
