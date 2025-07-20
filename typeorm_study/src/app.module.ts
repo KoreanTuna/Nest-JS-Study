@@ -12,6 +12,7 @@ import {
   SingleBaseModel,
 } from './entities/Inheritance.entity';
 import { ProfileModel } from './entities/profile_entity';
+import { PostModel } from './entities/post.entity';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ProfileModel } from './entities/profile_entity';
       StudentModel,
       TeacherModel,
       ProfileModel,
+      PostModel,
     ]),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -38,6 +40,7 @@ import { ProfileModel } from './entities/profile_entity';
         ComputerModel,
         AirplaneModel,
         ProfileModel,
+        PostModel,
       ],
       synchronize: true,
     }),
